@@ -6,6 +6,7 @@
  */
 
 import * as XLSX from "xlsx";
+import { compareDivisions } from "./constants";
 
 const TE60_SUBS = new Set([
   "PHYSICS",
@@ -420,15 +421,7 @@ export function processResultAnalysis(resultWorkbook, divisionWorkbook = null) {
 
   // Divisions present sorted naturally
   const divSet = new Set(students.map((s) => s.division).filter(Boolean));
-  const divisionsPresent = Array.from(divSet).sort((a, b) => {
-    const mA = a.match(/^([A-Za-z]*)(\d+)$/);
-    const mB = b.match(/^([A-Za-z]*)(\d+)$/);
-    if (mA && mB) {
-      if (mA[1] !== mB[1]) return mA[1].localeCompare(mB[1]);
-      return parseInt(mA[2], 10) - parseInt(mB[2], 10);
-    }
-    return a.localeCompare(b);
-  });
+  const divisionsPresent = Array.from(divSet).sort(compareDivisions);
 
   return {
     schoolName,

@@ -18,6 +18,7 @@ import {
   getSubjectRanklist,
   getSubjectAplusSummary,
 } from "./resultAnalysisLogic";
+import { DIVISION_LABELS } from "./constants";
 
 export function generatePdfReport(analysisData, examYear = "2026") {
   const {
@@ -341,7 +342,11 @@ export function generatePdfReport(analysisData, examYear = "2026") {
     if (divStudents.length === 0) continue;
 
     doc.addPage();
-    drawPageHeader(`CLASS RANK LIST — DIVISION ${divName}`);
+    const divLabel = DIVISION_LABELS[divName] || "";
+    const headerTitle = divLabel
+      ? `CLASS RANK LIST — DIVISION ${divName} (${divLabel})`
+      : `CLASS RANK LIST — DIVISION ${divName}`;
+    drawPageHeader(headerTitle);
 
     const headers = ["#", "Reg No", "Name", "Group", "Total", "%", "Result"];
 

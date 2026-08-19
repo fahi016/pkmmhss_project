@@ -30,7 +30,7 @@ export function Step2Rooms({
   const [batchRows, setBatchRows] = useState(
     currentBatches && currentBatches.length > 0
       ? currentBatches.map((b) => b.join(", "))
-      : ["S1, S2, S3, S5", "S4, S6, S7"]
+      : ["S1, S2, S3, S5, S8", "S4, S6, S7"]
   );
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -101,7 +101,7 @@ export function Step2Rooms({
   };
 
   const handleLoadDefaultBatches = () => {
-    setBatchRows(["S1, S2, S3, S5", "S4, S6, S7"]);
+    setBatchRows(["S1, S2, S3, S5, S8", "S4, S6, S7"]);
   };
 
   const handleSave = () => {
@@ -303,7 +303,7 @@ export function Step2Rooms({
               onClick={handleLoadDefaultBatches}
               className="px-3 py-1.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded-lg hover:bg-purple-200 transition"
             >
-              Default: S1-S3,S5 | S4,S6,S7
+              Default: S1-S3,S5,S8 | S4,S6,S7
             </button>
           )}
         </div>
@@ -325,7 +325,7 @@ export function Step2Rooms({
                     updated[idx] = e.target.value;
                     setBatchRows(updated);
                   }}
-                  placeholder="e.g. S1, S2, S3, S5"
+                  placeholder="e.g. S1, S2, S3, S5, S8"
                   className="flex-1 bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-medium text-slate-800"
                 />
                 <button

@@ -255,13 +255,13 @@ class SeatingApp(ctk.CTk):
         self.col_name_menu.grid(row=6, column=1, sticky="w", padx=10)
 
         self.grouping_col_label = ctk.CTkLabel(
-            frame, text="Division column (S1-S7, class/stream):")
+            frame, text="Division column (S1-S8, class/stream):")
         self.grouping_col_label.grid(row=7, column=0, sticky="w", pady=6)
         self.col_division_menu = ctk.CTkOptionMenu(frame, variable=self.col_division_var, values=["-"])
         self.col_division_menu.grid(row=7, column=1, sticky="w", padx=10)
         self.grouping_col_hint = ctk.CTkLabel(
             frame,
-            text="Division = which class the student belongs to (S1-S7). "
+            text="Division = which class the student belongs to (S1-S8). "
                  "Not the same as Second Language.",
             text_color="#666666", wraplength=520, justify="left")
         self.grouping_col_hint.grid(row=7, column=2, columnspan=2, sticky="w", padx=10)
@@ -311,7 +311,7 @@ class SeatingApp(ctk.CTk):
         self.custom_div_frame.grid(row=3, column=0, sticky="we", padx=12, pady=(0, 10))
 
         self.custom_div_rows = []
-        self._rebuild_custom_div_rows(["S1", "S2", "S3", "S4", "S5", "S6", "S7"])
+        self._rebuild_custom_div_rows(["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"])
 
         ctk.CTkButton(frame, text="Load Students →", height=38,
                       command=self._load_students).grid(row=13, column=0, sticky="w", pady=(24, 6))
@@ -344,7 +344,7 @@ class SeatingApp(ctk.CTk):
                 text="Second Language column (SL):")
             self.grouping_col_hint.configure(
                 text="Second Language = Arabic (A), Hindi (H), Malayalam (M), Urdu (U). "
-                     "This is separate from Division (S1-S7). Map the SL column, not DIVISION.")
+                     "This is separate from Division (S1-S8). Map the SL column, not DIVISION.")
         elif session.startswith("English"):
             self.grouping_col_label.configure(
                 text="Grouping column (ignored for English):")
@@ -353,15 +353,15 @@ class SeatingApp(ctk.CTk):
                      "the grouping column is not used.")
         elif session == "Regular Subjects":
             self.grouping_col_label.configure(
-                text="Division column (S1-S7, class/stream):")
+                text="Division column (S1-S8, class/stream):")
             self.grouping_col_hint.configure(
                 text="Division = which class the student belongs to: S1-S4 Bio Science, "
-                     "S5 CS, S6 Commerce, S7 Humanities. Map the DIVISION column, not SL.")
+                     "S5 CS, S8 CS, S6 Commerce, S7 Humanities. Map the DIVISION column, not SL.")
         elif session == "Custom":
             self.grouping_col_label.configure(
-                text="Division column (S1-S7, class/stream):")
+                text="Division column (S1-S8, class/stream):")
             self.grouping_col_hint.configure(
-                text="Class division column (S1-S7). Used to map each division's subject for this exam date.")
+                text="Class division column (S1-S8). Used to map each division's subject for this exam date.")
         else:
             self.grouping_col_label.configure(text="Grouping column:")
             self.grouping_col_hint.configure(
@@ -585,15 +585,15 @@ class SeatingApp(ctk.CTk):
         loaded_codes = set(counts.keys())
         if session == "Second Language" and loaded_codes.issubset(sl.DIVISION_CODES):
             status_lines.append(
-                "WARNING: These look like DIVISION codes (S1-S7), not Second Language. "
-                "Division = class/stream (S1-S7). Second Language = SL column (A/H/M/U). "
+                "WARNING: These look like DIVISION codes (S1-S8), not Second Language. "
+                "Division = class/stream (S1-S8). Second Language = SL column (A/H/M/U). "
                 "Change the grouping column to SL."
             )
             status_color = "#a60"
         elif session == "Regular Subjects" and loaded_codes.issubset(sl.SECOND_LANGUAGE_CODES):
             status_lines.append(
                 "WARNING: These look like Second Language codes (A/H/M/U), not divisions. "
-                "For Regular Subjects map the DIVISION column (S1-S7), not SL."
+                "For Regular Subjects map the DIVISION column (S1-S8), not SL."
             )
             status_color = "#a60"
         elif session == "Second Language" and len(counts) < 2:
@@ -605,7 +605,7 @@ class SeatingApp(ctk.CTk):
             status_color = "#a60"
         elif session == "Regular Subjects" and len(counts) < 2:
             status_lines.append(
-                "WARNING: Regular Subjects expects several divisions (S1-S7), but only one was "
+                "WARNING: Regular Subjects expects several divisions (S1-S8), but only one was "
                 "found. Use the full-list sheet, not a single-division sheet like S1."
             )
             status_color = "#a60"
@@ -689,7 +689,7 @@ class SeatingApp(ctk.CTk):
         self.batch_add_btn = ctk.CTkButton(batch_btns, text="+ Add Batch", width=100,
                                            command=self._add_batch_row)
         self.batch_add_btn.pack(side="left", padx=(0, 8))
-        ctk.CTkButton(batch_btns, text="Default: S1-S3,S5 | S4,S6,S7", width=200,
+        ctk.CTkButton(batch_btns, text="Default: S1-S3,S5,S8 | S4,S6,S7", width=220,
                       fg_color="#7D3C98", hover_color="#5B2C6F",
                       command=self._load_default_batches).pack(side="left")
 
@@ -747,7 +747,7 @@ class SeatingApp(ctk.CTk):
             row.winfo_children()[0].configure(text=f"Batch {i + 1}:")
 
     def _load_default_batches(self, silent=False):
-        defaults = ["S1, S2, S3, S5", "S4, S6, S7"]
+        defaults = ["S1, S2, S3, S5, S8", "S4, S6, S7"]
         if self.batch_rows and not silent:
             if not messagebox.askyesno("Replace batches?", "Replace current batch list with the default?"):
                 return

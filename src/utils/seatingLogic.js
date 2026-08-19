@@ -234,7 +234,7 @@ export function assignSeatsCore(students, rooms, sortByClassDivision = false) {
         `per bench is intentionally left empty as a spacer. ` +
         `Safe usable capacity: ${safeCapacity} of ${totalCapacity} seats -- ` +
         `this comfortably fits all ${totalStudents} student(s). ` +
-        `For Regular Subjects use the DIVISION column (S1-S7). ` +
+        `For Regular Subjects use the DIVISION column (S1-S8). ` +
         `For Second Language use the SL column (A/H/M/U). ` +
         `For English turn ON 'Treat everyone as ONE single group'.`
       );

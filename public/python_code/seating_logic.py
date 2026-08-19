@@ -38,7 +38,7 @@ from openpyxl.utils import get_column_letter
 # --------------------------------------------------------------------------- #
 # This school's division scheme never changes:
 #   S1, S2, S3, S4  -> Bio Science
-#   S5              -> Computer Science
+#   S5, S8          -> Computer Science (S8 is +1 only, added 2026)
 #   S6              -> Commerce
 #   S7              -> Humanities
 #
@@ -56,6 +56,7 @@ DIVISION_LABELS: Dict[str, str] = {
     "S5": "Computer Science",
     "S6": "Commerce",
     "S7": "Humanities",
+    "S8": "Computer Science",
 }
 
 # Second-language codes in the SL column (separate from division/stream).
@@ -72,7 +73,7 @@ SECOND_LANGUAGE_CODES = set(SECOND_LANGUAGE_LABELS.keys())
 # Divisions that belong to the "Bio Science / Computer Science" seating group
 # (Left & Right style columns in a 3-seat bench, or the bucket-0 columns more
 # generally).
-SCIENCE_GROUP_DIVISIONS = {"S1", "S2", "S3", "S4", "S5"}
+SCIENCE_GROUP_DIVISIONS = {"S1", "S2", "S3", "S4", "S5", "S8"}
 
 # Divisions that belong to the "Commerce / Humanities" seating group
 # (the Middle-style column in a 3-seat bench, or the bucket-1 columns more
@@ -413,7 +414,7 @@ def _assign_seats_core(students: List[Student], rooms: List[RoomConfig],
                 f"per bench is intentionally left empty as a spacer. "
                 f"Safe usable capacity: {safe_capacity} of {total_capacity} seats -- "
                 f"this comfortably fits all {total_students} student(s). "
-                f"For Regular Subjects use the DIVISION column (S1-S7). "
+                f"For Regular Subjects use the DIVISION column (S1-S8). "
                 f"For Second Language use the SL column (A/H/M/U). "
                 f"For English turn ON 'Treat everyone as ONE single group'."
             )
@@ -484,7 +485,7 @@ def assign_seats(students: List[Student], rooms: List[RoomConfig],
     Assign students to seats.
 
     division_batches (Second Language only): each inner list is a batch of
-    class divisions (e.g. [['S1','S2','S3','S5'], ['S4','S6','S7']]). Batch 1
+    class divisions (e.g. [['S1','S2','S3','S5','S8'], ['S4','S6','S7']]). Batch 1
     is seated in the first rooms, batch 2 in the next, and so on. Divisions
     within a batch are filled in ascending order (S1, S2, ...).
     """

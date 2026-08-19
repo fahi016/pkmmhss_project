@@ -13,6 +13,7 @@ export const DIVISION_LABELS = {
   S5: "Computer Science",
   S6: "Commerce",
   S7: "Humanities",
+  S8: "Computer Science", // +1 only — second CS section (from 2026)
 };
 
 export const SECOND_LANGUAGE_LABELS = {
@@ -25,7 +26,7 @@ export const SECOND_LANGUAGE_LABELS = {
 export const DIVISION_CODES = new Set(Object.keys(DIVISION_LABELS));
 export const SECOND_LANGUAGE_CODES = new Set(Object.keys(SECOND_LANGUAGE_LABELS));
 
-export const SCIENCE_GROUP_DIVISIONS = new Set(["S1", "S2", "S3", "S4", "S5"]);
+export const SCIENCE_GROUP_DIVISIONS = new Set(["S1", "S2", "S3", "S4", "S5", "S8"]);
 export const COMMERCE_HUMANITIES_GROUP_DIVISIONS = new Set(["S6", "S7"]);
 
 /**

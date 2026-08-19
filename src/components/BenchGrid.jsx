@@ -8,6 +8,7 @@ const DIVISION_COLORS = {
   S3: "bg-emerald-100 text-emerald-800 border-emerald-300",
   S4: "bg-emerald-100 text-emerald-800 border-emerald-300",
   S5: "bg-cyan-100 text-cyan-800 border-cyan-300",
+  S8: "bg-sky-100 text-sky-800 border-sky-300",
   S6: "bg-amber-100 text-amber-800 border-amber-300",
   S7: "bg-purple-100 text-purple-800 border-purple-300",
   A: "bg-rose-100 text-rose-800 border-rose-300",

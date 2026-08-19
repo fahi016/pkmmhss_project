@@ -19,6 +19,7 @@ import {
   DIVISION_LABELS,
   SECOND_LANGUAGE_LABELS,
   groupDisplayLabel,
+  DIVISION_CODES,
 } from "../utils/constants";
 
 export function Step1LoadData({
@@ -56,6 +57,7 @@ export function Step1LoadData({
     S5: { enabled: true, subject: "Computer Science" },
     S6: { enabled: true, subject: "Commerce" },
     S7: { enabled: true, subject: "Humanities" },
+    S8: { enabled: true, subject: "Computer Science" },
   });
 
   const [statusMsg, setStatusMsg] = useState(null);
@@ -227,8 +229,9 @@ export function Step1LoadData({
       }
 
       const loadedCodes = new Set(Object.keys(counts));
+      const divisionCodeList = Array.from(DIVISION_CODES);
       const isSLDivisionCodes = Array.from(loadedCodes).every((c) =>
-        ["S1", "S2", "S3", "S4", "S5", "S6", "S7"].includes(c)
+        divisionCodeList.includes(c)
       );
       const isRegularSLCodes = Array.from(loadedCodes).every((c) =>
         ["A", "H", "M", "U"].includes(c)
@@ -237,18 +240,18 @@ export function Step1LoadData({
       let warnText = "";
       if (sessionType === "Second Language" && isSLDivisionCodes) {
         warnText =
-          "WARNING: These look like DIVISION codes (S1-S7), not Second Language. " +
+          "WARNING: These look like DIVISION codes (S1-S8), not Second Language. " +
           "Second Language expects SL column (A/H/M/U). Map the SL column.";
       } else if (sessionType === "Regular Subjects" && isRegularSLCodes) {
         warnText =
           "WARNING: These look like Second Language codes (A/H/M/U), not divisions. " +
-          "For Regular Subjects map the DIVISION column (S1-S7).";
+          "For Regular Subjects map the DIVISION column (S1-S8).";
       } else if (sessionType === "Second Language" && Object.keys(counts).length < 2) {
         warnText =
           "WARNING: Second Language expects several language groups (A/H/M/U), but only 1 was found.";
       } else if (sessionType === "Regular Subjects" && Object.keys(counts).length < 2) {
         warnText =
-          "WARNING: Regular Subjects expects several divisions (S1-S7), but only 1 was found.";
+          "WARNING: Regular Subjects expects several divisions (S1-S8), but only 1 was found.";
       }
 
       const summaryParts = Object.entries(counts)
@@ -308,7 +311,7 @@ export function Step1LoadData({
               onChange={(e) => handleSessionTypeChange(e.target.value)}
               className="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-xl p-2.5 font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             >
-              <option value="Regular Subjects">Regular Subjects (S1-S7)</option>
+              <option value="Regular Subjects">Regular Subjects (S1-S8)</option>
               <option value="Second Language">Second Language (A/H/M/U)</option>
               <option value="English (single group)">English (single group)</option>
               <option value="Custom">Custom Exam Schedule</option>
@@ -432,7 +435,7 @@ export function Step1LoadData({
               <label className="text-xs font-semibold text-slate-600 block mb-1">
                 {sessionType === "Second Language"
                   ? "Second Language Column (SL):"
-                  : "Division Column (S1-S7, class/stream):"}
+                  : "Division Column (S1-S8, class/stream):"}
               </label>
               <select
                 disabled={singleGroup}
